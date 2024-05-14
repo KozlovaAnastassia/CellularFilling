@@ -82,7 +82,6 @@ final class CustomCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-        backgroundColor = .white
     }
 
     required init?(coder: NSCoder) {
@@ -99,6 +98,7 @@ final class CustomCell: UITableViewCell {
     }
     
     private func setupViews() {
+        backgroundColor = .white
         contentView.addSubview(horizontalStack)
         contentView.addSubview(smileyLabel)
         let margins = contentView.safeAreaLayoutGuide

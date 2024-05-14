@@ -35,12 +35,12 @@ enum Constants {
     }
     
     enum Colors {
-        static let button =  UIColor(hexString: "#5A3472")
+        static let customPurple =  UIColor(hexString: "#5A3472")
     }
     
     enum Font {
-        static let titleFont = UIFont.systemFont(ofSize: 18)
-        static let descriptionFont =  UIFont.systemFont(ofSize: 14)
+        static let titleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        static let descriptionFont =  UIFont.systemFont(ofSize: 14, weight: .medium)
         static let headerFont = UIFont.systemFont(ofSize: 25, weight: .medium)
     }
 }

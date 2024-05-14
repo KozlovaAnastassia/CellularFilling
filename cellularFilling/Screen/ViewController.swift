@@ -13,6 +13,8 @@ private enum Metrics {
     static let cellCornerRadius = 10.0
     static let headerLabelY = -20.0
     static let headerLabelHeight = 30.0
+    static let buttonCornerRadius: CGFloat = 4
+    static let backgroundGradientEnd = 0.3
 }
 
 final class ViewController: UIViewController {
@@ -21,9 +23,10 @@ final class ViewController: UIViewController {
     private lazy var button: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(Constants.Title.buttonTitle.uppercased(), for: .normal)
-        button.backgroundColor = Constants.Colors.button
-        button.titleLabel?.font = Constants.Font.titleFont
+        button.backgroundColor = Constants.Colors.customPurple
+        button.titleLabel?.font = Constants.Font.descriptionFont
         button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = Metrics.buttonCornerRadius
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addAction(UIAction { _ in
@@ -39,7 +42,7 @@ final class ViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = .black
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -60,17 +63,17 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         setUpTableView()
+        setUpBackgroung()
     }
     
 //MARK: -> Functions
    private func setUpViews() {
-        view.backgroundColor = .black
         view.addSubview(tableView)
         view.addSubview(button)
         
         NSLayoutConstraint.activate([
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, 
                                                constant: Constants.Constraints.offset16),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
@@ -93,6 +96,15 @@ final class ViewController: UIViewController {
                                  )
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = UIColor.gray
+    }
+    
+    private func setUpBackgroung() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor.systemPurple.cgColor, UIColor.black.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: Metrics.backgroundGradientEnd)
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
 //MARK: -> Extension

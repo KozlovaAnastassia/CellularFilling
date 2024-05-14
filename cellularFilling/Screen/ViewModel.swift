@@ -14,32 +14,16 @@ protocol IViewModel {
 }
 
 final class ViewModel: IViewModel  {
-    
+
+//MARK: -> Properties
     private var array = [CellModel]()
     private var count: Int = .zero
-    private var previousCell: KindOfCell = .life
+    private var previousCell: KindOfCell = .dead
     private var lastLife: Int? = nil
     
     var numberOfRowsInSection: Int {return self.array.count}
     
-    func getDataForCell(indexPath: IndexPath) -> CellModel {
-        array[indexPath.row]
-    }
-    
-    func buttonTapped() {
-        let lastCell: KindOfCell
-        
-        if array.isEmpty {
-            lastCell = getRandomCell()
-        } else {
-            lastCell = array[array.count - 1].cellKind
-        }
-        let nextCell = findNextCell(lastCell: lastCell)
-        
-        let cell = defineCellForArray(cell: nextCell)
-        array.append(cell)
-    }
-    
+//MARK: -> Private functions
     private func findNextCell(lastCell: KindOfCell) -> KindOfCell {
         switch lastCell {
         case .live:
@@ -118,5 +102,22 @@ final class ViewModel: IViewModel  {
                         smileyUniCode: Constants.UniCodes.lifeCellUniCode
                     )
         }
+    }
+    
+    func getDataForCell(indexPath: IndexPath) -> CellModel {
+        array[indexPath.row]
+    }
+        
+    func buttonTapped() {
+        let nextCell: KindOfCell
+            
+        if array.isEmpty {
+            nextCell = getRandomCell()
+        } else {
+            let lastCell = array[array.count - 1].cellKind
+            nextCell = findNextCell(lastCell: lastCell)
+        }
+        let cell = defineCellForArray(cell: nextCell)
+        array.append(cell)
     }
 }
